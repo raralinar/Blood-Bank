@@ -5,9 +5,6 @@ import com.bloodbank.bloodbank.model.login.User;
 import com.bloodbank.bloodbank.repository.login.RoleRepository;
 import com.bloodbank.bloodbank.repository.login.UserRepository;
 import com.bloodbank.bloodbank.repository.login.dto.UserDTO;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -34,8 +31,8 @@ public class UserService implements UserIService {
         user.setEmail(userDto.getEmail());
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
 
-        Optional<Role> roleNullable = roleRepository.findById(1L);
-        Role role = roleNullable.orElseGet(() -> new Role(1L));
+        Optional<Role> roleNullable = roleRepository.findById(2L);
+        Role role = roleNullable.orElseGet(() -> new Role(2L));
 
         user.setRole(role);
         userRepository.save(user);
