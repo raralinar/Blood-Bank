@@ -1,7 +1,7 @@
 package com.bloodbank.bloodbank.service.bank;
 
 import com.bloodbank.bloodbank.model.Shift;
-import com.bloodbank.bloodbank.repository.ShiftDAO;
+import com.bloodbank.bloodbank.repository.bank.ShiftDAO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

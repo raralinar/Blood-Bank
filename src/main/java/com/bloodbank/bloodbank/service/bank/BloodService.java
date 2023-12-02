@@ -1,7 +1,7 @@
 package com.bloodbank.bloodbank.service.bank;
 
 import com.bloodbank.bloodbank.model.blood.Blood;
-import com.bloodbank.bloodbank.repository.BloodDAO;
+import com.bloodbank.bloodbank.repository.bank.BloodDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
