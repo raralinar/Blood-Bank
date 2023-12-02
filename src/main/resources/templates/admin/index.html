@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta charset="UTF-8">
+        <title>Admin Page</title>
+    </head>
+    <body>
+    <table class="table table-bordered table-hover">
+        <thead class="table-dark">
+        <tr>
+            <th>Id</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Patronymic</th>
+            <th>Sex</th>
+            <th>Phone</th>
+            <th>Birth</th>
+            <th>Donations</th>
+            <th>Blood type</th>
+            <th>Rhesus</th>
+            <th>Kell</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each = "donor : ${donors}">
+            <td th:text = "${donor.id}"></td>
+            <td th:text = "${donor.name}"></td>
+            <td th:text = "${donor.surname}"></td>
+            <td th:text = "${donor.patronymic}"></td>
+            <td th:text = "${donor.sex}"></td>
+            <td th:text = "${donor.phone}"></td>
+            <td th:text = "${donor.dob}"></td>
+            <td th:text = "${donor.donation}"></td>
+            <td th:text = "${donor.blood.blood_type}"></td>
+            <td th:text = "${donor.blood.rhesus}"></td>
+            <td th:text = "${donor.blood.kell}"></td>
+        </tr>
+        </tbody>
+    </table>
+    </body>
+</html>
