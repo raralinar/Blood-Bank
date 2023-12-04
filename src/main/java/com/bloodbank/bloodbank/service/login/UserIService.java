@@ -1,8 +1,7 @@
 package com.bloodbank.bloodbank.service.login;
 
 import com.bloodbank.bloodbank.model.login.User;
-import com.bloodbank.bloodbank.repository.login.UserRepository;
-import com.bloodbank.bloodbank.repository.login.dto.UserDTO;
+import com.bloodbank.bloodbank.service.login.dto.UserDTO;
 
 import java.util.List;
 

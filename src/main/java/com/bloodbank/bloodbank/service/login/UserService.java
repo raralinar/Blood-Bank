@@ -4,7 +4,7 @@ import com.bloodbank.bloodbank.model.login.Role;
 import com.bloodbank.bloodbank.model.login.User;
 import com.bloodbank.bloodbank.repository.login.RoleRepository;
 import com.bloodbank.bloodbank.repository.login.UserRepository;
-import com.bloodbank.bloodbank.repository.login.dto.UserDTO;
+import com.bloodbank.bloodbank.service.login.dto.UserDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

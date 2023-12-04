@@ -1,4 +1,4 @@
-package com.bloodbank.bloodbank.repository.login.dto;
+package com.bloodbank.bloodbank.service.login.dto;
 
 
 import jakarta.validation.constraints.Email;
