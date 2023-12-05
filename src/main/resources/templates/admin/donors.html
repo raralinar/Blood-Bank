@@ -111,7 +111,7 @@
                             <nav class="navigation">
                                 <ul class="nav menu">
                                     <li class="active"><a th:href="@{/donors}">Список доноров </a></li>
-                                    <li><a th:href="@{/management}">Управление персоналом </a></li>
+                                    <li><a th:href="@{/manage}">Управление персоналом </a></li>
                                     <li><a th:href="@{/bank}">Список забора </a></li>
                                     <li><a th:href="@{/profile}">Профиль</a></li>
                                 </ul>
@@ -152,7 +152,7 @@
               role="form"
               th:action="@{/donors}"
               class="form-horizontal">
-            <table id="myTable">
+            <table class="myTable">
                 <thead>
                 <tr>
                     <th> id</th>

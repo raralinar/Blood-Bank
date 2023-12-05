@@ -111,7 +111,7 @@
                             <nav class="navigation">
                                 <ul class="nav menu">
                                     <li><a th:href="@{/donors}">Список доноров </a></li>
-                                    <li  class="active"><a th:href="@{/manage}">Управление персоналом </a></li>
+                                    <li class="active"><a th:href="@{/manage}">Управление персоналом </a></li>
                                     <li><a th:href="@{/bank}">Список забора </a></li>
                                     <li><a th:href="@{/profile}">Профиль</a></li>
                                 </ul>
@@ -131,160 +131,70 @@
         <br>
         <div class="col-lg-12">
             <div class="section-title">
-                <h2>Добавить нового пациента</h2>
+                <h2>Добавить новую смену</h2>
             </div>
         </div>
         <div class="row justify-content-center">
             <div class="col-lg-6 col-md-24 col-12">
                 <form role="form"
                       method="post"
-                      th:action="@{/donors/add}"
-                      th:object="${donor}">
+                      th:action="@{/manage/sh/add}"
+                      th:object="${shift}">
                     <div class="row justify-content-center">
                         <div class="col-12">
                             <div class="form-group">
                                 <input
                                         class="form-control"
-                                        id="name"
-                                        name="name"
-                                        placeholder="Введите имя"
-                                        th:field="*{name}"
-                                        type="text"
+                                        placeholder="Введите дату"
+                                        th:field="*{date}"
+                                        type="date"
                                 />
-                                <p th:errors = "*{name}" class="text-danger"
-                                   th:if="${#fields.hasErrors('name')}"></p>
+                                <p th:errors = "*{date}" class="text-danger"
+                                   th:if="${#fields.hasErrors('date')}"></p>
                             </div>
                         </div>
-                        <div class="col-12">
-                            <div class="form-group">
-                                <input
-                                        class="form-control"
-                                        id="surname"
-                                        name="surname"
-                                        placeholder="Введите фамилию"
-                                        th:field="*{surname}"
-                                        type="text"
-                                />
-                                <p th:errors = "*{surname}" class="text-danger"
-                                   th:if="${#fields.hasErrors('surname')}"></p>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="form-group">
-                                <input
-                                        class="form-control"
-                                        id="patronymic"
-                                        name="patronymic"
-                                        placeholder="Введите отчество"
-                                        th:field="*{patronymic}"
-                                        type="text"
-                                />
-                            </div>
-                        </div>
-                    </div>
+<!--                        <div class="col-12">-->
+<!--                            <div class="form-group">-->
+<!--                                <input-->
+<!--                                        class="form-control"-->
+<!--                                        placeholder="Введите время начала"-->
+<!--                                        th:field="*{begin}"-->
+<!--                                        type="time"-->
+<!--                                        contenteditable="false"-->
+<!--                                />-->
+<!--                                <p th:errors = "*{begin}" class="text-danger"-->
+<!--                                   th:if="${#fields.hasErrors('begin')}"></p>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="col-12">-->
+<!--                            <div class="form-group">-->
+<!--                                <input-->
+<!--                                        class="form-control"-->
+<!--                                        placeholder="Введите время окончания"-->
+<!--                                        th:field="*{end}"-->
+<!--                                        type="time"-->
+<!--                                />-->
+<!--                                <p th:errors = "*{end}" class="text-danger"-->
+<!--                                   th:if="${#fields.hasErrors('end')}"></p>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-6">
                             <div class="form-group">
-                                <input
-                                        class="form-control"
-                                        id="dob"
-                                        name="dob"
-                                        placeholder="Введите дату рождения"
-                                        th:field="*{dob}"
-                                        type="date"
-                                        min="1950-01-01"
-                                        max=""
-                                />
-                                <p th:errors = "*{dob}" class="text-danger"
-                                   th:if="${#fields.hasErrors('dob')}"></p>
-                            </div>
-                        </div>
-                        <div class="col-lg-12 col-md-12 col-6">
-                            <div class="form-group">
-                                <input
-                                        class="form-control"
-                                        id="phone"
-                                        name="phone"
-                                        placeholder="Введите телефон"
-                                        th:field="*{phone}"
-                                        type="text"
-                                />
-                                <p th:errors = "*{phone}" class="text-danger" th:if="${#fields.hasErrors('phone')}"></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row align-items-center">
-                        <div class="col-lg-6 col-md-12 col-12">
-                            <div class="form-group">
-                                <fieldset>
-                                    <p><b>Выберите пол:</b></p><br>
-                                    <table>
-                                        <tr>
-                                            <td>
-                                                <label for="sex1">Мужской</label>
-                                            </td>
-                                            <td>
-                                                <input class="form-control"
-                                                       id="sex1"
-                                                       name="sex"
-                                                       th:value="m"
-                                                       th:field="*{sex}"
-                                                       type="radio"
-                                                />
-                                            </td>
-                                        </tr>
-                                    </table>
-                                    <table>
-                                        <tr>
-                                            <td>
-                                                <label for="sex2">Женский</label>
-                                            </td>
-                                            <td>
-                                                <input class="form-control"
-                                                       id="sex2"
-                                                       name="sex"
-                                                       th:value="f"
-                                                       th:field="*{sex}"
-                                                       type="radio"/>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </fieldset>
-                                <p th:errors = "*{sex}" class="text-danger"
-                                   th:if="${#fields.hasErrors('sex')}"></p>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-6 col-md-6 col-12">
-                            <div class="form-group">
-                                <select class="form-control selectpicker" th:field="*{blood_type}"
+                                <select class="form-control selectpicker" th:field="*{employee}"
                                         id="blood_type"
                                         name="type"
                                         roleId="type">
-                                    <option value="" selected="selected">Выберите группу крови</option>
-                                    <option th:value="1" th:text="I">I</option>
-                                    <option th:value="2" th:text="II">II</option>
-                                    <option th:value="3" th:text="III">III</option>
-                                    <option th:value="4" th:text="IV">IV</option>
+                                    <option value="" selected="selected">Выберите сотрудника смены</option>
+                                    <option th:each="i : ${employees}" th:value="${i}" th:text="${i}">
+                                    </option>
                                 </select>
-
-                                <select class="form-control selectpicker" th:field="*{rhesus}" id="rhesus"
-                                        name="rhesus"
-                                        roleId="rhesus">
-                                    <option value="" selected="selected">Выберите резус</option>
-                                    <option th:value="'+'">Положительный (+)</option>
-                                    <option th:value="'-'">Отрицательный (-)</option>
-                                </select>
-                                <br><br><br><br><br>
-                                <p th:errors="*{blood_type}" class="text-danger"
-                                   th:if="${#fields.hasErrors('blood_type')}"></p>
-                                <p th:errors="*{rhesus}" class="text-danger"
-                                   th:if="${#fields.hasErrors('rhesus')}"></p>
+                                <p th:errors = "*{employee}" class="text-danger"
+                                   th:if="${#fields.hasErrors('employee')}"></p>
                             </div>
                         </div>
                     </div>
-
-
                     <div class="row justify-content-center">
                         <div class="col-lg-5 col-md-6 col-12">
                             <div class="form-group">
