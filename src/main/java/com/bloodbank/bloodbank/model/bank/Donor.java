@@ -1,5 +1,6 @@
-package com.bloodbank.bloodbank.model;
+package com.bloodbank.bloodbank.model.bank;
 
+import com.bloodbank.bloodbank.model.bank.blood.Blood;
 import jakarta.persistence.*;
 import lombok.NoArgsConstructor;
 

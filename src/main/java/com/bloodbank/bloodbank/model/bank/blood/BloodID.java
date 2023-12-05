@@ -1,4 +1,4 @@
-package com.bloodbank.bloodbank.model.blood;
+package com.bloodbank.bloodbank.model.bank.blood;
 
 import java.io.Serializable;
 

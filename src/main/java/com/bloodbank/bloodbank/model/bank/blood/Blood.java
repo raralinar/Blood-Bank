@@ -1,5 +1,6 @@
-package com.bloodbank.bloodbank.model;
+package com.bloodbank.bloodbank.model.bank.blood;
 
+import com.bloodbank.bloodbank.model.bank.Donor;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
