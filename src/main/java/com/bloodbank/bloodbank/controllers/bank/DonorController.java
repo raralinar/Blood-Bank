@@ -74,7 +74,6 @@ public class DonorController {
     public String edit(@RequestParam Long id, Model model) {
         action = "edit";
         model.addAttribute("donor", donorService.maptoDTO(donorService.findById((long) id)));
-        model.addAttribute("id", id);
         return "admin/edit";
     }
 
