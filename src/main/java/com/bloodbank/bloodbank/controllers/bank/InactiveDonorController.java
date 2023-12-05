@@ -1,11 +1,6 @@
-package com.bloodbank.bloodbank.controllers;
+package com.bloodbank.bloodbank.controllers.bank;
 
-import com.bloodbank.bloodbank.model.InactiveDonor;
 import com.bloodbank.bloodbank.service.bank.InactiveDonorService;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-
-import java.util.List;
 
 //@Controller
 public class InactiveDonorController {

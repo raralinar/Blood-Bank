@@ -1,8 +1,8 @@
-package com.bloodbank.bloodbank.controllers;
+package com.bloodbank.bloodbank.controllers.bank;
 
 import java.util.List;
 
-public interface IController<T> {
+public interface IController<T, K> {
     List<T> getAll();
     List<T> add();
     List<T> delete();

@@ -1,7 +1,7 @@
-package com.bloodbank.bloodbank.controllers;
+package com.bloodbank.bloodbank.controllers.login;
 
 import com.bloodbank.bloodbank.model.login.User;
-import com.bloodbank.bloodbank.repository.login.dto.UserDTO;
+import com.bloodbank.bloodbank.service.login.dto.UserDTO;
 import com.bloodbank.bloodbank.service.login.PasswordEncoder;
 import com.bloodbank.bloodbank.service.login.UserService;
 import jakarta.validation.Valid;
