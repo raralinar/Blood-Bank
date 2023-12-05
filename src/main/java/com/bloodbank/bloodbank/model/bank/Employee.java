@@ -1,11 +1,13 @@
-package com.bloodbank.bloodbank.model;
+package com.bloodbank.bloodbank.model.bank;
 
 import jakarta.persistence.*;
+import lombok.ToString;
 
 import java.time.LocalDate;
 
 @Entity
 @Table
+@ToString
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -19,6 +21,7 @@ public class Employee {
     private LocalDate dob;
     private LocalDate employed;
 
+    @Transient
     @OneToOne(mappedBy = "employee")
     private Shift shift;
 
