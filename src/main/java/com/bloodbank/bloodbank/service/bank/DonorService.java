@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class DonorService implements IService<Donor> {
+public class DonorService implements IService<Donor, DonorDTO> {
     private final DonorDAO donorDAO;
     private final BloodDAO bloodDAO;
 
@@ -26,6 +26,7 @@ public class DonorService implements IService<Donor> {
         return donorDAO.findAll();
     }
 
+    @Override
     public void add(DonorDTO donorDTO) {
         Donor donor = new Donor();
         donor.setName(donorDTO.getName());
@@ -46,6 +47,7 @@ public class DonorService implements IService<Donor> {
         donorDAO.save(donor);
     }
 
+    @Override
     public void delete(Long id) {
         if (donorDAO.findById(id).isEmpty())
             return;
@@ -54,6 +56,7 @@ public class DonorService implements IService<Donor> {
         bloodDAO.save(blood);
     }
 
+    @Override
     public void update(DonorDTO donorDTO) {
         Donor donor = donorDAO.findByPhone(donorDTO.getPhone());
         donor.setName(donorDTO.getName());
@@ -82,6 +85,7 @@ public class DonorService implements IService<Donor> {
         return donorDAO.findByPhone(phone) != null;
     }
 
+    @Override
     public Donor findById(Long id) {
         return donorDAO.findById(id).get();
     }
