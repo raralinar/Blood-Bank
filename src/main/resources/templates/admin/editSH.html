@@ -141,7 +141,7 @@
                       th:action="@{/manage/sh/add}"
                       th:object="${shift}">
                     <div class="row justify-content-center">
-                        <div class="col-12">
+                        <div class="col">
                             <div class="form-group">
                                 <input
                                         class="form-control"
@@ -149,38 +149,47 @@
                                         th:field="*{date}"
                                         type="date"
                                 />
-                                <p th:errors = "*{date}" class="text-danger"
+                                <p th:errors="*{date}" class="text-danger"
                                    th:if="${#fields.hasErrors('date')}"></p>
                             </div>
                         </div>
-<!--                        <div class="col-12">-->
-<!--                            <div class="form-group">-->
-<!--                                <input-->
-<!--                                        class="form-control"-->
-<!--                                        placeholder="Введите время начала"-->
-<!--                                        th:field="*{begin}"-->
-<!--                                        type="time"-->
-<!--                                        contenteditable="false"-->
-<!--                                />-->
-<!--                                <p th:errors = "*{begin}" class="text-danger"-->
-<!--                                   th:if="${#fields.hasErrors('begin')}"></p>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        <div class="col-12">-->
-<!--                            <div class="form-group">-->
-<!--                                <input-->
-<!--                                        class="form-control"-->
-<!--                                        placeholder="Введите время окончания"-->
-<!--                                        th:field="*{end}"-->
-<!--                                        type="time"-->
-<!--                                />-->
-<!--                                <p th:errors = "*{end}" class="text-danger"-->
-<!--                                   th:if="${#fields.hasErrors('end')}"></p>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
+                    </div>
                     <div class="row">
-                        <div class="col-lg-12 col-md-12 col-6">
+                        <div class="col">
+                            <label>Время начала смены</label>
+                        </div>
+                        <div class="col">
+                            <label>Время окончания смены</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <input
+                                        class="form-control"
+                                        placeholder="Введите время начала"
+                                        th:field="*{begin}"
+                                        type="time"
+                                />
+                                <p th:errors="*{begin}" class="text-danger"
+                                   th:if="${#fields.hasErrors('begin')}"></p>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <input
+                                        class="form-control"
+                                        placeholder="Введите время окончания"
+                                        th:field="*{end}"
+                                        type="time"
+                                />
+                                <p th:errors="*{end}" class="text-danger"
+                                   th:if="${#fields.hasErrors('end')}"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-lg-6 col-md-6 col-12">
                             <div class="form-group">
                                 <select class="form-control selectpicker" th:field="*{employee}"
                                         id="blood_type"
@@ -190,13 +199,13 @@
                                     <option th:each="i : ${employees}" th:value="${i}" th:text="${i}">
                                     </option>
                                 </select>
-                                <p th:errors = "*{employee}" class="text-danger"
+                                <p th:errors="*{employee}" class="text-danger"
                                    th:if="${#fields.hasErrors('employee')}"></p>
                             </div>
                         </div>
                     </div>
                     <div class="row justify-content-center">
-                        <div class="col-lg-5 col-md-6 col-12">
+                        <div class="col-lg-3 col-md-6 col-6">
                             <div class="form-group">
                                 <div class="button">
                                     <button type="submit" class="btn">Добавить</button>
