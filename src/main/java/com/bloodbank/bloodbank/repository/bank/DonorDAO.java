@@ -10,7 +10,6 @@ import java.util.Optional;
 
 @Repository
 public interface DonorDAO extends JpaRepository<Donor, Long> {
-
     @Query("SELECT d FROM Donor d where id = ?1")
     Optional<Donor> findById(Long id);
 
