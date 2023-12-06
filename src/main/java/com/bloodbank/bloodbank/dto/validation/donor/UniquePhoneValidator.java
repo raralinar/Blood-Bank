@@ -1,4 +1,4 @@
-package com.bloodbank.bloodbank.dto;
+package com.bloodbank.bloodbank.dto.validation.donor;
 
 import com.bloodbank.bloodbank.service.bank.DonorService;
 import jakarta.validation.ConstraintValidator;

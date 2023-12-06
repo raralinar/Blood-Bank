@@ -1,5 +1,6 @@
 package com.bloodbank.bloodbank.dto;
 
+import com.bloodbank.bloodbank.dto.validation.donor.UniquePhone;
 import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,7 +23,7 @@ public class EmployeeDTO {
     private String patronymic;
     @NotBlank(message = "Значение 'Телефон' не должно быть пустым.")
     @NotNull
-//    @UniquePhone
+    @UniquePhone
     @Pattern(regexp = "^(8)([9]{1}[0-9]{9})?$", message = "Значение 'Телефон' не соответствует формату.")
     private String phone;
     @NotNull(message = "Значение 'Дата' не должно быть пустым.")

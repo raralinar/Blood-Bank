@@ -1,4 +1,4 @@
-package com.bloodbank.bloodbank.dto;
+package com.bloodbank.bloodbank.dto.validation.donor;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
