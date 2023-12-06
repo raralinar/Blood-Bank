@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class EmployeeService implements IService<Employee> {
+public class EmployeeService implements IService<Employee, EmployeeDTO> {
     private final EmployeeDAO employeeDAO;
     @Autowired
     public EmployeeService(EmployeeDAO employeeDAO) {
@@ -29,6 +29,7 @@ public class EmployeeService implements IService<Employee> {
         return employeeDAO.findByNames(surname, name, patronymic);
     }
 
+    @Override
     public void add(EmployeeDTO employeeDTO) {
         Employee employee = new Employee();
         employee.setName(employeeDTO.getName());
@@ -40,6 +41,7 @@ public class EmployeeService implements IService<Employee> {
         employeeDAO.save(employee);
     }
 
+    @Override
     public void update(EmployeeDTO employeeDTO) {
         Employee employee = employeeDAO.findByPhone(employeeDTO.getPhone());
         employee.setName(employeeDTO.getName());
@@ -51,6 +53,7 @@ public class EmployeeService implements IService<Employee> {
         employeeDAO.save(employee);
     }
 
+    @Override
     public void delete(Long id) {
         if (employeeDAO.findById(id).isEmpty())
             return;
@@ -71,6 +74,7 @@ public class EmployeeService implements IService<Employee> {
 
 
 
+    @Override
     public Employee findById(Long id) {
         return employeeDAO.findById(id).get();
     }
