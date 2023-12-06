@@ -1,4 +1,4 @@
-package com.bloodbank.bloodbank.model;
+package com.bloodbank.bloodbank.model.bank;
 
 import jakarta.persistence.*;
 
@@ -61,5 +61,9 @@ public class Shift {
 
     public void setEmployee(Employee employee) {
         this.employee = employee;
+    }
+
+    public String full() {
+        return employee.getSurname() + " " + employee.getName() + " " + employee.getPatronymic();
     }
 }

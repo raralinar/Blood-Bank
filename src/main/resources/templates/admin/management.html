@@ -131,6 +131,8 @@
         <br>
         <h2 style="text-align: center;">Список сотрудников и смен</h2>
         <br>
+        <hr>
+        <h2 style="opacity: 0.5; text-align: center;">Информация о работниках</h2>
         <br>
         <div class="row">
             <div class="col-lg-12">
@@ -153,6 +155,9 @@
                     </div>
                 </div>
                 <br><br>
+                <div th:if="${param.error}">
+                    <div class="alert alert-danger">Невозможно удалить сотрудника, так как он связан со сменой.</div>
+                </div>
                 <form method="get"
                       role="form"
                       th:action="@{/manage/employees}"
@@ -160,7 +165,7 @@
                     <details open>
                         <summary><h2>Список работников</h2></summary>
                         <br>
-                        <table id="myTable">
+                        <table class="myTable">
                             <thead>
                             <tr>
                                 <th> id</th>
@@ -176,7 +181,7 @@
                             </thead>
                             <tbody>
                             <tr th:if="${employees.empty}">
-                                <td colspan="2"> There are no employees.</td>
+                                <td colspan="2"> Нет работников.</td>
                             </tr>
                             <tr th:each="em : ${employees}">
                                 <td><span th:text="${em.id}"> id </span></td>
@@ -201,7 +206,8 @@
                 </form>
                 <br>
                 <hr>
-                <br><br>
+                <h2 style="opacity: 0.5; text-align: center;">Информация о сменах</h2>
+                <br>
                 <div class="row" style="width: 58%;">
                     <div class="col">
                         <label>От</label><br>
@@ -234,51 +240,103 @@
                         </form>
                     </div>
                 </div>
-            </div>
-            <form method="get"
-                  role="form"
-                  th:action="@{/manage/shifts}"
-                  class="form-horizontal">
                 <br><br>
-                <details open>
-                    <summary><h2>Список смен</h2></summary>
+                <div class="row">
+                    <div class="col">
+                        <h2>Текущая смена</h2>
+                    </div>
                     <br>
-                    <table id="myTable1">
-                        <thead>
-                        <tr>
-                            <th> id</th>
-                            <th> Дата</th>
-                            <th> Время начала</th>
-                            <th> Время окончания</th>
-                            <th> ФИО Работника</th>
-                            <th> Изменить</th>
-                            <th> Удалить</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr th:if="${shifts.empty}">
-                            <td colspan="2"> There are no shifts.</td>
-                        </tr>
-                        <tr th:each="sh : ${shifts}">
-                            <td><span th:text="${sh.id}"> id </span></td>
-                            <td><span th:text="${sh.date}"> Дата </span></td>
-                            <td><span th:text="${sh.begin}"> Начало </span></td>
-                            <td><span th:text="${sh.end}"> Конец </span></td>
-                            <td><span th:text="${sh.full()}"> ФИО </span></td>
-                            <td>
-                                <a th:href="@{/manage/sh/edit(id=${sh.id})}" class="btn"><i class="fa fa-edit"></i>
-                                </a>
-                            </td>
-                            <td>
-                                <a th:href="@{/manage/sh/delete(id=${sh.id})}" class="btn"><i
-                                        class="fa fa-trash"></i></a>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </details>
-                <br><br><br>
-            </form>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <form method="get"
+                              role="form"
+                              th:action="@{/manage/shifts/current}"
+                              class="form-horizontal">
+                            <br><br>
+                            <table class="myTable">
+                                <thead>
+                                <tr>
+                                    <th> id</th>
+                                    <th> Дата</th>
+                                    <th> Время начала</th>
+                                    <th> Время окончания</th>
+                                    <th> ФИО Работника</th>
+                                    <th> Изменить</th>
+                                    <!--                            <th> Удалить</th>-->
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:if="${currentShift.empty}">
+                                    <td colspan="2"> Сегодня нет смены.</td>
+                                </tr>
+                                <tr th:each="sh : ${currentShift}">
+                                    <td><span th:text="${sh.id}"> id </span></td>
+                                    <td><span th:text="${sh.date}"> Дата </span></td>
+                                    <td><span th:text="${sh.begin}"> Начало </span></td>
+                                    <td><span th:text="${sh.end}"> Конец </span></td>
+                                    <td><span th:text="${sh.full()}"> ФИО </span></td>
+                                    <td>
+                                        <a th:href="@{/manage/sh/edit(id=${sh.id})}" class="btn"><i
+                                                class="fa fa-edit"></i>
+                                        </a>
+                                    </td>
+                                    <!--                            <td>-->
+                                    <!--                                <a th:href="@{/manage/sh/delete(id=${sh.id})}" class="btn"><i-->
+                                    <!--                                        class="fa fa-trash"></i></a>-->
+                                    <!--                            </td>-->
+                                </tr>
+                                </tbody>
+                            </table>
+                        </form>
+                    </div>
+                </div>
+                <form method="get"
+                      role="form"
+                      th:action="@{/manage/shifts}"
+                      class="form-horizontal">
+                    <br><br>
+                    <details>
+                        <summary><h2>Посмотреть все смены</h2></summary>
+                        <br>
+                        <table class="myTable">
+                            <thead>
+                            <tr>
+                                <th> id</th>
+                                <th> Дата</th>
+                                <th> Время начала</th>
+                                <th> Время окончания</th>
+                                <th> ФИО Работника</th>
+                                <th> Изменить</th>
+                                <!--                            <th> Удалить</th>-->
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:if="${shifts.empty}">
+                                <td colspan="2"> Нет смен.</td>
+                            </tr>
+                            <tr th:each="sh : ${shifts}">
+                                <td><span th:text="${sh.id}"> id </span></td>
+                                <td><span th:text="${sh.date}"> Дата </span></td>
+                                <td><span th:text="${sh.begin}"> Начало </span></td>
+                                <td><span th:text="${sh.end}"> Конец </span></td>
+                                <td><span th:text="${sh.full()}"> ФИО </span></td>
+                                <td>
+                                    <a th:href="@{/manage/sh/edit(id=${sh.id})}" class="btn"><i
+                                            class="fa fa-edit"></i>
+                                    </a>
+                                </td>
+                                <!--                            <td>-->
+                                <!--                                <a th:href="@{/manage/sh/delete(id=${sh.id})}" class="btn"><i-->
+                                <!--                                        class="fa fa-trash"></i></a>-->
+                                <!--                            </td>-->
+                            </tr>
+                            </tbody>
+                        </table>
+                    </details>
+                    <br><br><br>
+                </form>
+            </div>
         </div>
     </div>
     </div>
