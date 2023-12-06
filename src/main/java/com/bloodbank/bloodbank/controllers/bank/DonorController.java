@@ -10,7 +10,9 @@ import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -48,6 +50,16 @@ public class DonorController {
     @PostMapping("/donors/add")
     public String addDonor(@Valid @ModelAttribute("donor") DonorDTO donorDTO, BindingResult result,
                            Model model) {
+        if (!donorDTO.getPhone().isBlank() && action.equals("edit")) {
+            List<FieldError> errorsToKeep = result.getFieldErrors().stream()
+                    .filter(fer -> !fer.getField().equals("phone")).toList();
+
+            result = new BeanPropertyBindingResult(donorDTO, "donor");
+
+            for (FieldError fieldError : errorsToKeep) {
+                result.addError(fieldError);
+            }
+        }
         if (result.hasErrors()) {
             return "admin/edit";
         }
