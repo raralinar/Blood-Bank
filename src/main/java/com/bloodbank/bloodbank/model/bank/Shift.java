@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 @Entity
 @Table
@@ -15,12 +16,12 @@ public class Shift {
     private LocalTime begin;
     private LocalTime end;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "employee_id", referencedColumnName = "id")
     private Employee employee;
 
-    @OneToOne(mappedBy = "shift")
-    private BloodBank bloodBank;
+    @OneToMany(mappedBy = "shift")
+    private List<BloodSample> bloodSample;
 
     public Long getId() {
         return id;
@@ -63,7 +64,7 @@ public class Shift {
         this.employee = employee;
     }
 
-    public String full() {
+    public String fullNameEmployee() {
         return employee.getSurname() + " " + employee.getName() + " " + employee.getPatronymic();
     }
 }

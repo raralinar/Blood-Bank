@@ -1,11 +1,14 @@
 package com.bloodbank.bloodbank.model.login;
 
 
+import com.bloodbank.bloodbank.model.bank.Employee;
 import jakarta.persistence.*;
+import lombok.ToString;
 import org.springframework.stereotype.Controller;
 
 @Entity
 @Table(name = "users")
+@ToString
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -20,19 +23,15 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name = "role_id", referencedColumnName = "id")
     private Role role;
 
-    public User() {
-    }
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "employee_id", referencedColumnName = "id")
+    private Employee employee;
 
-    public User(String name, String surname, String email, String password, Role role) {
-        this.name = name;
-        this.surname = surname;
-        this.email = email;
-        this.password = password;
-        this.role = role;
+    public User() {
     }
 
     public Long getId() {
@@ -81,5 +80,13 @@ public class User {
 
     public void setSurname(String surname) {
         this.surname = surname;
+    }
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
 }

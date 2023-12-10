@@ -3,12 +3,14 @@ package com.bloodbank.bloodbank.model.bank;
 import com.bloodbank.bloodbank.model.bank.blood.Blood;
 import jakarta.persistence.*;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "patient")
 @NoArgsConstructor
+@ToString
 public class Donor {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -22,7 +24,7 @@ public class Donor {
     @Column(name = "birth")
     private LocalDate dob;
     private int donation;
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinColumns({
             @JoinColumn(name = "blood_type", referencedColumnName = "blood_type"),
             @JoinColumn(name = "rhesus", referencedColumnName = "rhesus"),
@@ -30,8 +32,8 @@ public class Donor {
     private Blood blood;
 
     @Transient
-    @OneToOne(mappedBy = "donor")
-    private BloodBank bloodBank;
+    @OneToMany(mappedBy = "donor")
+    private BloodSample bloodSample;
 
 
     public Blood getBlood() {
@@ -109,9 +111,12 @@ public class Donor {
     public boolean isFull() {
         if (donation == 5 && sex.equals("m"))
             return true;
-        if (donation == 4 && sex.equals("f"))
-            return true;
-        return false;
+        return donation == 4 && sex.equals("f");
+    }
+
+    @Transient
+    public String fullNameDonor() {
+        return getId() + " " + getSurname() + " " + getName() + " " + getPatronymic();
     }
 
 }

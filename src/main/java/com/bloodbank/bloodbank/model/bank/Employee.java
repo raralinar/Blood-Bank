@@ -1,13 +1,18 @@
 package com.bloodbank.bloodbank.model.bank;
 
+import com.bloodbank.bloodbank.model.login.User;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table
-@ToString
+@Getter
+@Setter
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -25,59 +30,9 @@ public class Employee {
     @OneToOne(mappedBy = "employee")
     private Shift shift;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPatronymic() {
-        return patronymic;
-    }
-
-    public void setPatronymic(String patronymic) {
-        this.patronymic = patronymic;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public LocalDate getDob() {
-        return dob;
-    }
-
-    public void setDob(LocalDate dob) {
-        this.dob = dob;
-    }
-
-    public LocalDate getEmployed() {
-        return employed;
-    }
-
-    public void setEmployed(LocalDate employed) {
-        this.employed = employed;
-    }
+    @Transient
+    @OneToOne(mappedBy = "employee", cascade = CascadeType.REMOVE)
+    private User user;
+    private String email;
+    private String password;
 }

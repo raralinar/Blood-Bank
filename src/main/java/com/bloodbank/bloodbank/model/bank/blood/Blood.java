@@ -18,6 +18,7 @@ public class Blood implements Serializable {
     private String kell;
     private int volume;
 
+    @Transient
     @OneToMany(mappedBy = "blood")
     private List<Donor> donor;
 
