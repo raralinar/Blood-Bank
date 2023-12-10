@@ -3,39 +3,113 @@
       xmlns:th="http://www.thymeleaf.org"
 >
 <head>
-    <meta charset="UTF-8">
+    <!-- Meta Tags -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="keywords" content="Site keywords here">
+    <meta name="description" content="">
+    <meta name='copyright' content=''>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
     <title>Registration and Login System</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
           rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
           crossorigin="anonymous">
+    <link rel="icon" th:href="@{/static/img/favicon.png}">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" th:href="@{/static/css/bootstrap.min.css}">
+    <!-- Nice Select CSS -->
+    <link rel="stylesheet" th:href="@{/static/css/nice-select.css}">
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" th:href="@{/static/css/font-awesome.min.css}">
+    <!-- icofont CSS -->
+    <link rel="stylesheet" th:href="@{/static/css/icofont.css}">
+    <!-- Slicknav -->
+    <link rel="stylesheet" th:href="@{/static/css/slicknav.min.css}">
+    <!-- Owl Carousel CSS -->
+    <link rel="stylesheet" th:href="@{/static/css/owl-carousel.css}">
+    <!-- Datepicker CSS -->
+    <link rel="stylesheet" th:href="@{/static/css/datepicker.css}">
+    <!-- Animate CSS -->
+    <link rel="stylesheet" th:href="@{/static/css/animate.min.css}">
+    <!-- Magnific Popup CSS -->
+    <link rel="stylesheet" th:href="@{/static/css/magnific-popup.css}">
+
+    <!-- Medipro CSS -->
+    <link rel="stylesheet" th:href="@{/static/css/normalize.css}">
+    <link rel="stylesheet" th:href="@{/static/style.css}">
+    <link rel="stylesheet" th:href="@{/static/css/responsive.css}">
+
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" th:href="@{/index}">Registration and Login System</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" th:href="@{/login}">Login</a>
-                </li>
-            </ul>
+<!-- Header Area -->
+<header class="header">
+    <!-- Topbar -->
+    <div class="topbar">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-5 col-12">
+                    <!-- Contact -->
+                    <ul class="top-link">
+                        <li><a th:href="@{/about}">О нас</a></li>
+                        <li><a th:href="@{/donation}">Донорство</a></li>
+                        <li><a th:href="@{/faq}">FAQ</a></li>
+                    </ul>
+                    <!-- End Contact -->
+                </div>
+                <div class="col-lg-6 col-md-7 col-12">
+                    <!-- Top Contact -->
+                    <ul class="top-contact">
+                        <li><i class="fa fa-phone"></i>+7 928 123 45 67</li>
+                        <li><i class="fa fa-envelope"></i><a href="mailto:support@yourmail.com">blood_bank@mail.ru</a>
+                        </li>
+                    </ul>
+                    <!-- End Top Contact -->
+                </div>
+            </div>
         </div>
     </div>
-</nav>
-<br /><br /><br />
+    <!-- End Topbar -->
+    <!-- Header Inner -->
+    <div class="header-inner">
+        <div class="container">
+            <div class="inner">
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-12">
+                        <!-- Start Logo -->
+                        <div class="logo">
+                            <a th:href="@{/index}"><img th:src="@{/static/img/logo.png}" alt="#"></a>
+                        </div>
+                        <!-- End Logo -->
+                        <!-- Mobile Nav -->
+                        <div class="mobile-nav"></div>
+                        <!-- End Mobile Nav -->
+                    </div>
+                    <div class="col-lg-7 col-md-9 col-12">
+                        <!-- Main Menu -->
+                        <div class="main-menu" align="center" style="margin-top: 2%; margin-right: 12%;">
+                            <h1>Вход/Регистрация</h1>
+                        </div>
+                        <!--/ End Main Menu -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--/ End Header Inner -->
+</header>
+<!-- End Header Area -->
+<br/><br/><br/>
 <div class="container">
     <div class="row col-md-8 offset-md-2">
         <div class="card">
             <div class="card-header">
-                <h2 class="text-center">Registration</h2>
+                <h2 class="text-center">Регистрация</h2>
             </div>
             <div th:if="${param.success}">
                 <div class="alert alert-info">
-                    You have successfully registered our app!
+                    Вы успешно вошли в свой аккаунт!
                 </div>
             </div>
             <div class="card-body">
@@ -46,12 +120,12 @@
                         th:object="${user}"
                 >
                     <div class="form-group mb-3">
-                        <label class="form-label">First Name</label>
+                        <label class="form-label">Имя</label>
                         <input
                                 class="form-control"
                                 id="name"
                                 name="name"
-                                placeholder="Enter first name"
+                                placeholder="Введите Имя"
                                 th:field="*{name}"
                                 type="text"
                         />
@@ -60,12 +134,12 @@
                     </div>
 
                     <div class="form-group mb-3">
-                        <label class="form-label">Last Name</label>
+                        <label class="form-label">Фамилия</label>
                         <input
                                 class="form-control"
                                 id="surname"
                                 name="surname"
-                                placeholder="Enter last name"
+                                placeholder="Введите фамилию"
                                 th:field="*{surname}"
                                 type="text"
                         />
@@ -79,7 +153,7 @@
                                 class="form-control"
                                 id="email"
                                 name="email"
-                                placeholder="Enter email address"
+                                placeholder="Введите e-mail"
                                 th:field="*{email}"
                                 type="email"
                         />
@@ -88,26 +162,118 @@
                     </div>
 
                     <div class="form-group mb-3">
-                        <label class="form-label">Password</label>
+                        <label class="form-label">Пароль</label>
                         <input
                                 class="form-control"
                                 id="password"
                                 name="password"
-                                placeholder="Enter password"
+                                placeholder="Введите пароль"
                                 th:field="*{password}"
                                 type="password"
                         />
-                        <p th:errors = "*{password}" class="text-danger"
+                        <p th:errors="*{password}" class="text-danger"
                            th:if="${#fields.hasErrors('password')}"></p>
                     </div>
-                    <div class="form-group">
-                        <button class="btn btn-primary" type="submit">Register</button>
-                        <span>Already registered? <a th:href="@{/login}">Login here</a></span>
+                    <div class="row justify-context-center">
+                        <div class="col" align="center">
+                            <div class="form-group">
+                                <button class="btn btn-primary" type="submit">Зарегистрироваться</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row justify-context-center">
+                        <div class="col" align="center">
+                            <div class="form-group">
+                                <span>Уже зарегистрированы? <a th:href="@{/login}" style="text-decoration: underline">Войдите здесь!</a></span>
+                            </div>
+                        </div>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
+<br><br><br>
+<!-- Footer Area -->
+<footer id="footer" class="footer ">
+    <!-- Footer Top -->
+    <div class="footer-top">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 col-12">
+                    <div class="single-footer">
+                        <h2>О нас</h2>
+                        <p>Служба крови – это важнейшая отрасль здравоохранения, целью которой является обеспечение
+                            качественной трансфузионной терапии.</p>
+                        <!-- Social -->
+                        <ul class="social">
+                            <li><a href="#"><i class="icofont-facebook"></i></a></li>
+                            <li><a href="#"><i class="icofont-google-plus"></i></a></li>
+                            <li><a href="#"><i class="icofont-twitter"></i></a></li>
+                            <li><a href="#"><i class="icofont-vimeo"></i></a></li>
+                            <li><a href="#"><i class="icofont-pinterest"></i></a></li>
+                        </ul>
+                        <!-- End Social -->
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-12">
+                    <div class="single-footer f-link">
+                        <h2>Быстрые ссылки</h2>
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-12">
+                                <ul>
+                                    <li><a th:href="@{/index}"><i class="fa fa-caret-right" aria-hidden="true"></i>Главная</a>
+                                    </li>
+                                    <li><a th:href="@{/contact}"><i class="fa fa-caret-right" aria-hidden="true"></i>О
+                                        нас</a></li>
+                                    <li><a th:href="@{/contact}"><i class="fa fa-caret-right" aria-hidden="true"></i>Контакты</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-12">
+                    <div class="single-footer">
+                        <h2>Часы работы</h2>
+                        <ul class="time-sidual">
+                            <li class="day">Понедельник - Пятница <span>8.00-20.00</span></li>
+                            <li class="day">Суббота <span>9.00-18.30</span></li>
+                            <li class="day">Воскресенье <span>9.00-15.00</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-12">
+                    <div class="single-footer">
+                        <h6>Подпишитесь на новости</h6>
+                        <p class="">Оставьте адрес своей электронной почты <br> и получайте интересные новости.</p>
+                        <form action="mail/mail.php" method="get" target="_blank" class="newsletter-inner">
+                            <input name="email" placeholder="Email Address" class="common-input"
+                                   onfocus="this.placeholder = ''"
+                                   onblur="this.placeholder = 'Your email address'" required="" type="email">
+                            <button class="button"><i class="icofont icofont-paper-plane"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--/ End Footer Top -->
+    <!-- Copyright -->
+    <div class="copyright">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-12">
+                    <div class="copyright-content">
+                        <p>© Copyright 2018 | All Rights Reserved by <a href="https://www.wpthemesgrid.com"
+                                                                        target="_blank">wpthemesgrid.com</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--/ End Copyright -->
+</footer>
+<!--/ End Footer Area -->
 </body>
 </html>
