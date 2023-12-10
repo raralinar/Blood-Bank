@@ -1,0 +1,363 @@
+<!doctype html>
+<html class="no-js" lang="zxx" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <!-- Meta Tags -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="keywords" content="Site keywords here">
+    <meta name="description" content="">
+    <meta name='copyright' content=''>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Title -->
+    <title>Blood Bank</title>
+
+    <!-- Favicon -->
+    <link rel="icon" th:href="@{/static/img/favicon.png}">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap"
+          rel="stylesheet">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" th:href="@{/static/css/bootstrap.min.css}">
+    <!-- Nice Select CSS -->
+    <link rel="stylesheet" th:href="@{/static/css/nice-select.css}">
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" th:href="@{/static/css/font-awesome.min.css}">
+    <!-- icofont CSS -->
+    <link rel="stylesheet" th:href="@{/static/css/icofont.css}">
+    <!-- Slicknav -->
+    <link rel="stylesheet" th:href="@{/static/css/slicknav.min.css}">
+    <!-- Owl Carousel CSS -->
+    <link rel="stylesheet" th:href="@{/static/css/owl-carousel.css}">
+    <!-- Datepicker CSS -->
+    <link rel="stylesheet" th:href="@{/static/css/datepicker.css}">
+    <!-- Animate CSS -->
+    <link rel="stylesheet" th:href="@{/static/css/animate.min.css}">
+    <!-- Magnific Popup CSS -->
+    <link rel="stylesheet" th:href="@{/static/css/magnific-popup.css}">
+
+    <!-- Medipro CSS -->
+    <link rel="stylesheet" th:href="@{/static/css/normalize.css}">
+    <link rel="stylesheet" th:href="@{/static/style.css}">
+    <link rel="stylesheet" th:href="@{/static/css/responsive.css}">
+
+</head>
+<body>
+
+<!-- Preloader -->
+<div class="preloader">
+    <div class="loader">
+        <div class="loader-outter"></div>
+        <div class="loader-inner"></div>
+
+        <div class="indicator">
+            <svg width="16px" height="12px">
+                <polyline id="back" points="1 6 4 6 6 11 10 1 12 6 15 6"></polyline>
+                <polyline id="front" points="1 6 4 6 6 11 10 1 12 6 15 6"></polyline>
+            </svg>
+        </div>
+    </div>
+</div>
+<!-- End Preloader -->
+
+<!-- Header Area -->
+<header class="header">
+    <!-- Topbar -->
+    <div class="topbar">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-5 col-12">
+                    <!-- Contact -->
+                    <ul class="top-link">
+                        <li><a th:href="@{/about}">О нас</a></li>
+                        <li><a th:href="@{/donation}">Донорство</a></li>
+                        <li><a th:href="@{/faq}">FAQ</a></li>
+                    </ul>
+                    <!-- End Contact -->
+                </div>
+                <div class="col-lg-6 col-md-7 col-12">
+                    <!-- Top Contact -->
+                    <ul class="top-contact">
+                        <li><i class="fa fa-phone"></i>+7 928 123 45 67</li>
+                        <li><i class="fa fa-envelope"></i><a href="mailto:support@yourmail.com">blood_bank@mail.ru</a>
+                        </li>
+                        <li>
+                            <a th:href="@{/logout}"> Выход</a>
+                        </li>
+                    </ul>
+                    <!-- End Top Contact -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Topbar -->
+    <!-- Header Inner -->
+    <div class="header-inner">
+        <div class="container">
+            <div class="inner">
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-12">
+                        <!-- Start Logo -->
+                        <div class="logo">
+                            <a th:href="@{/index}"><img th:src="@{/static/img/logo.png}" alt="#"></a>
+                        </div>
+                        <!-- End Logo -->
+                        <!-- Mobile Nav -->
+                        <div class="mobile-nav"></div>
+                        <!-- End Mobile Nav -->
+                    </div>
+                    <div class="col-lg-7 col-md-9 col-12">
+                        <!-- Main Menu -->
+                        <div class="main-menu">
+                            <nav class="navigation">
+                                <ul class="nav menu">
+                                    <li><a th:href="@{/donors}">Список доноров </a></li>
+                                    <li><a th:href="@{/manage}">Управление персоналом </a></li>
+                                    <li class="active"><a th:href="@{/sample}">Список забора </a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--/ End Header Inner -->
+</header>
+<!-- End Header Area -->
+
+<section class="donorslist">
+    <div class="container">
+        <br>
+        <h2 style="text-align: center;">Список забора крови</h2>
+        <br> <br>
+        <div class="row justify-content-center">
+            <div class="col">
+                <div class="row">
+                    <form th:action="@{/sample/search/name}" th:object="${search}" method="post"
+                          style="width: 75%;">
+                        <div class="input-group">
+                            <div class="col">
+                                <input type="text" class="form-control" th:field="*{string}"
+                                       placeholder="Найти донора... [Фамилия Имя Отчество]"
+                                       style="width: 100%; height: 47px;">
+                            </div>
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary">Поиск <i class="fa fa-search"></i></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <br>
+                <div class="row" style="width: 68%;">
+                    <div class="col">
+                        <label>От</label><br>
+                    </div>
+                    <div class="col">
+                        <label>До</label><br>
+                    </div>
+                </div>
+                <div class="row">
+                    <form th:action="@{/sample/search/date}" th:object="${date}" method="post"
+                          style="width: 75%;">
+                        <div class="input-group">
+                            <div class="col">
+                                <input id="from" type="date" class="form-control" th:field="*{from}"
+                                       style="width: 100%; height: 47px;">
+                            </div>
+                            <div class="col">
+                                <input id="to" type="date" class="form-control" th:field="*{to}"
+                                       style="width: 100%; height: 47px;">
+                            </div>
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary">Поиск <i class="fa fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <br>
+                <div class="row">
+                    <form th:action="@{/sample/add}">
+                        <div class="col">
+                            <button class="btn">Добавить забор крови</button>
+                        </div>
+                    </form>
+
+                    <div class="col" th:if="${condition}">
+                        <div class="alert alert-warning" style="width: 87%;">Внимание! На сегодняшний день смена не
+                            добавлена.
+                        </div>
+                    </div>
+                </div>
+                <br>
+            </div>
+            <form method="get"
+                  role="form"
+                  class="form-horizontal" style="width: 100%; margin-left: 1%;">
+                <table class="myTable">
+                    <thead>
+                    <tr>
+                        <th> id</th>
+                        <th> Дата</th>
+                        <th> Время</th>
+                        <th> Объем</th>
+                        <th> Донор</th>
+                        <th> Работник</th>
+                        <th> Изменить</th>
+                        <th> Удалить</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:if="${samples.empty}">
+                        <td colspan="2"> Нет процедур забора крови.</td>
+                    </tr>
+                    <tr th:each="sample : ${samples}">
+                        <td><span th:text="${sample.id}"> id </span></td>
+                        <td><span th:text="${sample.shift.date}"> Дата </span></td>
+                        <td><span th:text="${sample.time}"> Время </span></td>
+                        <td><span th:text="${sample.volume}"> Объем, мл </span></td>
+                        <td><span th:text="${sample.donor.fullNameDonor()}"> Донор </span></td>
+                        <td><span th:text="${sample.shift.fullNameEmployee()}"> Работник </span></td>
+                        <td>
+                            <a th:href="@{/sample/edit(id=${sample.id})}" class="btn"><i class="fa fa-edit"></i>
+                            </a>
+                        </td>
+                        <td>
+                            <a th:href="@{/sample/delete(id=${sample.id})}" class="btn"><i class="fa fa-trash"></i></a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </form>
+        </div>
+    </div>
+</section>
+
+
+<!-- Footer Area -->
+<footer id="footer" class="footer ">
+    <!-- Footer Top -->
+    <div class="footer-top">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 col-12">
+                    <div class="single-footer">
+                        <h2>О нас</h2>
+                        <p>Служба крови – это важнейшая отрасль здравоохранения, целью которой является обеспечение
+                            качественной трансфузионной терапии.</p>
+                        <!-- Social -->
+                        <ul class="social">
+                            <li><a href="#"><i class="icofont-facebook"></i></a></li>
+                            <li><a href="#"><i class="icofont-google-plus"></i></a></li>
+                            <li><a href="#"><i class="icofont-twitter"></i></a></li>
+                            <li><a href="#"><i class="icofont-vimeo"></i></a></li>
+                            <li><a href="#"><i class="icofont-pinterest"></i></a></li>
+                        </ul>
+                        <!-- End Social -->
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-12">
+                    <div class="single-footer f-link">
+                        <h2>Быстрые ссылки</h2>
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-12">
+                                <ul>
+                                    <li><a th:href="@{/index}"><i class="fa fa-caret-right" aria-hidden="true"></i>Главная</a>
+                                    </li>
+                                    <li><a th:href="@{/contact}"><i class="fa fa-caret-right" aria-hidden="true"></i>О
+                                        нас</a></li>
+                                    <li><a th:href="@{/contact}"><i class="fa fa-caret-right" aria-hidden="true"></i>Контакты</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-12">
+                    <div class="single-footer">
+                        <h2>Часы работы</h2>
+                        <ul class="time-sidual">
+                            <li class="day">Понедельник - Пятница <span>8.00-20.00</span></li>
+                            <li class="day">Суббота <span>9.00-18.30</span></li>
+                            <li class="day">Воскресенье <span>9.00-15.00</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-12">
+                    <div class="single-footer">
+                        <h2>Подписаться</h2>
+                        <p>Подпишитесь на рассылку и получайте полезную информацию для доноров!</p>
+                        <form action="mail/mail.php" method="get" target="_blank" class="newsletter-inner">
+                            <input name="email" placeholder="Email Address" class="common-input"
+                                   onfocus="this.placeholder = ''"
+                                   onblur="this.placeholder = 'Your email address'" required="" type="email">
+                            <button class="button"><i class="icofont icofont-paper-plane"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--/ End Footer Top -->
+    <!-- Copyright -->
+    <div class="copyright">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-12">
+                    <div class="copyright-content">
+                        <p>© Copyright 2018 | All Rights Reserved by <a href="https://www.wpthemesgrid.com"
+                                                                        target="_blank">wpthemesgrid.com</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--/ End Copyright -->
+</footer>
+<!--/ End Footer Area -->
+
+<!-- jquery Min JS -->
+<script th:src="@{/static/js/jquery.min.js}"></script>
+<!-- jquery Migrate JS -->
+<script th:src="@{/static/js/jquery-migrate-3.0.0.js}"></script>
+<!-- jquery Ui JS -->
+<script th:src="@{/static/js/jquery-ui.min.js}"></script>
+<!-- Easing JS -->
+<script th:src="@{/static/js/easing.js}"></script>
+<!-- Color JS -->
+<script th:src="@{/static/js/colors.js}"></script>
+<!-- Popper JS -->
+<script th:src="@{/static/js/popper.min.js}"></script>
+<!-- Bootstrap Datepicker JS -->
+<script th:src="@{/static/js/bootstrap-datepicker.js}"></script>
+<!-- Jquery Nav JS -->
+<script th:src="@{/static/js/jquery.nav.js}"></script>
+<!-- Slicknav JS -->
+<script th:src="@{/static/js/slicknav.min.js}"></script>
+<!-- ScrollUp JS -->
+<script th:src="@{/static/js/jquery.scrollUp.min.js}"></script>
+<!-- Niceselect JS -->
+<script th:src="@{/static/js/niceselect.js}"></script>
+<!-- Tilt Jquery JS -->
+<script th:src="@{/static/js/tilt.jquery.min.js}"></script>
+<!-- Owl Carousel JS -->
+<script th:src="@{/static/js/owl-carousel.js}"></script>
+<!-- counterup JS -->
+<script th:src="@{/static/js/jquery.counterup.min.js}"></script>
+<!-- Steller JS -->
+<script th:src="@{/static/js/steller.js}"></script>
+<!-- Wow JS -->
+<script th:src="@{/static/js/wow.min.js}"></script>
+<!-- Magnific Popup JS -->
+<script th:src="@{/static/js/jquery.magnific-popup.min.js}"></script>
+<!-- Counter Up CDN JS -->
+<script src="http://cdnjs.cloudflare.com/ajax/libs/waypoints/2.0.3/waypoints.min.js"></script>
+<!-- Bootstrap JS -->
+<script th:src="@{/static/js/bootstrap.min.js}"></script>
+<!-- Main JS -->
+<script th:src="@{/static/js/main.js}"></script>
+</body>
+</html>

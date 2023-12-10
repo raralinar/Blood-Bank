@@ -13,35 +13,36 @@
     <title>Blood Bank</title>
 
     <!-- Favicon -->
-    <link rel="icon" th:href="@{/img/favicon.png}">
+    <link rel="icon" th:href="@{/static/img/favicon.png}">
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Poppins:200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap"
           rel="stylesheet">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/static/css/bootstrap.min.css}">
     <!-- Nice Select CSS -->
-    <link rel="stylesheet" th:href="@{/css/nice-select.css}">
+    <link rel="stylesheet" th:href="@{/static/css/nice-select.css}">
     <!-- Font Awesome CSS -->
-    <link rel="stylesheet" th:href="@{/css/font-awesome.min.css}">
+    <link rel="stylesheet" th:href="@{/static/css/font-awesome.min.css}">
     <!-- icofont CSS -->
-    <link rel="stylesheet" th:href="@{/css/icofont.css}">
+    <link rel="stylesheet" th:href="@{/static/css/icofont.css}">
     <!-- Slicknav -->
-    <link rel="stylesheet" th:href="@{/css/slicknav.min.css}">
+    <link rel="stylesheet" th:href="@{/static/css/slicknav.min.css}">
     <!-- Owl Carousel CSS -->
-    <link rel="stylesheet" th:href="@{/css/owl-carousel.css}">
+    <link rel="stylesheet" th:href="@{/static/css/owl-carousel.css}">
     <!-- Datepicker CSS -->
-    <link rel="stylesheet" th:href="@{/css/datepicker.css}">
+    <link rel="stylesheet" th:href="@{/static/css/datepicker.css}">
     <!-- Animate CSS -->
-    <link rel="stylesheet" th:href="@{/css/animate.min.css}">
+    <link rel="stylesheet" th:href="@{/static/css/animate.min.css}">
     <!-- Magnific Popup CSS -->
-    <link rel="stylesheet" th:href="@{/css/magnific-popup.css}">
+    <link rel="stylesheet" th:href="@{/static/css/magnific-popup.css}">
 
     <!-- Medipro CSS -->
-    <link rel="stylesheet" th:href="@{/css/normalize.css}">
-    <link rel="stylesheet" th:href="@{/style.css}">
-    <link rel="stylesheet" th:href="@{/css/responsive.css}">
+    <link rel="stylesheet" th:href="@{/static/css/normalize.css}">
+    <link rel="stylesheet" th:href="@{/static/style.css}">
+    <link rel="stylesheet" th:href="@{/static/css/responsive.css}">
+
 
 </head>
 <body>
@@ -83,6 +84,9 @@
                         <li><i class="fa fa-phone"></i>+7 928 123 45 67</li>
                         <li><i class="fa fa-envelope"></i><a href="mailto:support@yourmail.com">blood_bank@mail.ru</a>
                         </li>
+                        <li>
+                            <a th:href="@{/logout}"> Выход</a>
+                        </li>
                     </ul>
                     <!-- End Top Contact -->
                 </div>
@@ -98,7 +102,7 @@
                     <div class="col-lg-3 col-md-3 col-12">
                         <!-- Start Logo -->
                         <div class="logo">
-                            <a href="index.html"><img th:src="@{/img/logo.png}" alt="#"></a>
+                            <a th:href="@{/index}"><img th:src="@{/static/img/logo.png}" alt="#"></a>
                         </div>
                         <!-- End Logo -->
                         <!-- Mobile Nav -->
@@ -110,10 +114,9 @@
                         <div class="main-menu">
                             <nav class="navigation">
                                 <ul class="nav menu">
-                                    <li class="active"><a th:href="@{/donors}">Список доноров </a></li>
-                                    <li><a th:href="@{/manage}">Управление персоналом </a></li>
-                                    <li><a th:href="@{/bank}">Список забора </a></li>
-                                    <li><a th:href="@{/profile}">Профиль</a></li>
+                                    <li><a th:href="@{/donors}">Список доноров </a></li>
+                                    <li class="active"><a th:href="@{/manage}">Управление персоналом </a></li>
+                                    <li><a th:href="@{/sample}">Список забора </a></li>
                                 </ul>
                             </nav>
                         </div>
@@ -129,76 +132,93 @@
 <section class="donorslist">
     <div class="container">
         <br>
-        <h2 style="text-align: center;">Список зарегистрированных пациентов</h2>
-        <br> <br>
+        <div class="col-lg-12">
+            <div class="section-title">
+                <h2>Добавить/Изменить смену</h2>
+            </div>
+        </div>
         <div class="row justify-content-center">
-            <form th:action="@{/donors/search}" th:object="${search}" method="post" style="width: 60%; margin-left: 1.25%;">
-                <div class="input-group">
-                    <input type="text" class="form-control" th:field="*{string}" placeholder="Найти... [Фамилия Имя Отчество]"
-                           style="width: 100%; height: 47px;">
-                    <div class="input-group-append">
-                        <button class="btn btn-outline-secondary">Поиск <i class="fa fa-search"></i></button>
+            <div class="col-lg-6 col-md-24 col-12">
+                <form role="form"
+                      method="post"
+                      th:action="@{/shift/add}"
+                      th:object="${shift}">
+                    <div class="row justify-content-center">
+                        <div class="col">
+                            <div class="form-group">
+                                <input
+                                        class="form-control"
+                                        placeholder="Введите дату"
+                                        th:field="*{date}"
+                                        type="date"
+                                />
+                                <p th:errors="*{date}" class="text-danger"
+                                   th:if="${#fields.hasErrors('date')}"></p>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </form>
-            <div class="col">
-                <form th:action="@{/donors/add}">
-                    <button class="btn">Добавить нового донора</button>
+                    <div class="row">
+                        <div class="col">
+                            <label>Время начала смены</label>
+                        </div>
+                        <div class="col">
+                            <label>Время окончания смены</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <input
+                                        class="form-control"
+                                        placeholder="Введите время начала"
+                                        th:field="*{begin}"
+                                        type="time"
+                                />
+                                <p th:errors="*{begin}" class="text-danger"
+                                   th:if="${#fields.hasErrors('begin')}"></p>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <input
+                                        class="form-control"
+                                        placeholder="Введите время окончания"
+                                        th:field="*{end}"
+                                        type="time"
+                                />
+                                <p th:errors="*{end}" class="text-danger"
+                                   th:if="${#fields.hasErrors('end')}"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-lg-6 col-md-6 col-12">
+                            <div class="form-group">
+                                <select class="form-control selectpicker" th:field="*{employee}"
+                                        id="blood_type"
+                                        name="type"
+                                        roleId="type">
+                                    <option value="" selected="selected">Выберите сотрудника смены</option>
+                                    <option th:each="i : ${employees}" th:value="${i}" th:text="${i}">
+                                    </option>
+                                </select>
+                                <p th:errors="*{employee}" class="text-danger"
+                                   th:if="${#fields.hasErrors('employee')}"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-lg-3 col-md-6 col-6">
+                            <div class="form-group">
+                                <div class="button">
+                                    <button type="submit" class="btn">Добавить</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>
-        <br>
-        <form method="get"
-              role="form"
-              th:action="@{/donors}"
-              class="form-horizontal">
-            <table class="myTable">
-                <thead>
-                <tr>
-                    <th> id</th>
-                    <th> Фамилия</th>
-                    <th> Имя</th>
-                    <th> Отчество</th>
-                    <th> Пол</th>
-                    <th> ДР</th>
-                    <th> Телефон</th>
-                    <th> Количество <br> донаций</th>
-                    <th> Группа <br> крови</th>
-                    <th> Резус</th>
-                    <th> Антиген <br> Kell</th>
-                    <th> Изменить</th>
-                    <th> Удалить</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:if="${donors.empty}">
-                    <td colspan="2"> There are no donors.</td>
-                </tr>
-                <tr th:each="donor : ${donors}">
-                    <td><span th:text="${donor.id}"> id </span></td>
-                    <td><span th:text="${donor.surname}"> Фамилия </span></td>
-                    <td><span th:text="${donor.name}"> Имя </span></td>
-                    <td><span th:text="${donor.patronymic}"> Отчество </span></td>
-                    <td><span th:text="${donor.sex}"> Пол </span></td>
-                    <td><span th:text="${donor.dob}"> ДР </span></td>
-                    <td><span th:text="${donor.phone}"> Телефон </span></td>
-                    <td><span th:style="${donor.isFull ? 'color:red;' : 'color:#333;'}"
-                              th:text="${donor.donation}"> Количество донаций </span></td>
-                    <td><span th:text="${donor.blood.blood_type}"> Группа крови </span></td>
-                    <td><span th:text="${donor.blood.rhesus}"> Резус </span></td>
-                    <td><span th:text="${donor.blood.kell}"> Антиген Kell </span></td>
-                    <td>
-                        <a th:href="@{/donors/edit(id=${donor.id})}" class="btn"><i class="fa fa-edit"></i>
-                        </a>
-                    </td>
-                    <td>
-                        <a th:href="@{/donors/delete(id=${donor.id})}" class="btn"><i class="fa fa-trash"></i></a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </form>
-    </div>
     </div>
 </section>
 
@@ -286,44 +306,44 @@
 <!--/ End Footer Area -->
 
 <!-- jquery Min JS -->
-<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/static/js/jquery.min.js}"></script>
 <!-- jquery Migrate JS -->
-<script th:src="@{/js/jquery-migrate-3.0.0.js}"></script>
+<script th:src="@{/static/js/jquery-migrate-3.0.0.js}"></script>
 <!-- jquery Ui JS -->
-<script th:src="@{/js/jquery-ui.min.js}"></script>
+<script th:src="@{/static/js/jquery-ui.min.js}"></script>
 <!-- Easing JS -->
-<script th:src="@{/js/easing.js}"></script>
+<script th:src="@{/static/js/easing.js}"></script>
 <!-- Color JS -->
-<script th:src="@{/js/colors.js}"></script>
+<script th:src="@{/static/js/colors.js}"></script>
 <!-- Popper JS -->
-<script th:src="@{/js/popper.min.js}"></script>
+<script th:src="@{/static/js/popper.min.js}"></script>
 <!-- Bootstrap Datepicker JS -->
-<script th:src="@{/js/bootstrap-datepicker.js}"></script>
+<script th:src="@{/static/js/bootstrap-datepicker.js}"></script>
 <!-- Jquery Nav JS -->
-<script th:src="@{/js/jquery.nav.js}"></script>
+<script th:src="@{/static/js/jquery.nav.js}"></script>
 <!-- Slicknav JS -->
-<script th:src="@{/js/slicknav.min.js}"></script>
+<script th:src="@{/static/js/slicknav.min.js}"></script>
 <!-- ScrollUp JS -->
-<script src="js/jquery.scrollUp.min.js}"></script>
+<script th:src="@{/static/js/jquery.scrollUp.min.js}"></script>
 <!-- Niceselect JS -->
-<script th:src="@{/js/niceselect.js}"></script>
+<script th:src="@{/static/js/niceselect.js}"></script>
 <!-- Tilt Jquery JS -->
-<script th:src="@{/js/tilt.jquery.min.js}"></script>
+<script th:src="@{/static/js/tilt.jquery.min.js}"></script>
 <!-- Owl Carousel JS -->
-<script th:src="@{/js/owl-carousel.js}"></script>
+<script th:src="@{/static/js/owl-carousel.js}"></script>
 <!-- counterup JS -->
-<script th:src="@{/js/jquery.counterup.min.js}"></script>
+<script th:src="@{/static/js/jquery.counterup.min.js}"></script>
 <!-- Steller JS -->
-<script th:src="@{/js/steller.js}"></script>
+<script th:src="@{/static/js/steller.js}"></script>
 <!-- Wow JS -->
-<script th:src="@{/js/wow.min.js}"></script>
+<script th:src="@{/static/js/wow.min.js}"></script>
 <!-- Magnific Popup JS -->
-<script th:src="@{/js/jquery.magnific-popup.min.js}"></script>
+<script th:src="@{/static/js/jquery.magnific-popup.min.js}"></script>
 <!-- Counter Up CDN JS -->
 <script src="http://cdnjs.cloudflare.com/ajax/libs/waypoints/2.0.3/waypoints.min.js"></script>
 <!-- Bootstrap JS -->
-<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/static/js/bootstrap.min.js}"></script>
 <!-- Main JS -->
-<script th:src="@{/js/main.js}"></script>
+<script th:src="@{/static/js/main.js}"></script>
 </body>
 </html>

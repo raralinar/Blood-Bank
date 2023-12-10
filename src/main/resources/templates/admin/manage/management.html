@@ -13,35 +13,36 @@
     <title>Blood Bank</title>
 
     <!-- Favicon -->
-    <link rel="icon" th:href="@{/img/favicon.png}">
+    <link rel="icon" th:href="@{/static/img/favicon.png}">
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Poppins:200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap"
           rel="stylesheet">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/static/css/bootstrap.min.css}">
     <!-- Nice Select CSS -->
-    <link rel="stylesheet" th:href="@{/css/nice-select.css}">
+    <link rel="stylesheet" th:href="@{/static/css/nice-select.css}">
     <!-- Font Awesome CSS -->
-    <link rel="stylesheet" th:href="@{/css/font-awesome.min.css}">
+    <link rel="stylesheet" th:href="@{/static/css/font-awesome.min.css}">
     <!-- icofont CSS -->
-    <link rel="stylesheet" th:href="@{/css/icofont.css}">
+    <link rel="stylesheet" th:href="@{/static/css/icofont.css}">
     <!-- Slicknav -->
-    <link rel="stylesheet" th:href="@{/css/slicknav.min.css}">
+    <link rel="stylesheet" th:href="@{/static/css/slicknav.min.css}">
     <!-- Owl Carousel CSS -->
-    <link rel="stylesheet" th:href="@{/css/owl-carousel.css}">
+    <link rel="stylesheet" th:href="@{/static/css/owl-carousel.css}">
     <!-- Datepicker CSS -->
-    <link rel="stylesheet" th:href="@{/css/datepicker.css}">
+    <link rel="stylesheet" th:href="@{/static/css/datepicker.css}">
     <!-- Animate CSS -->
-    <link rel="stylesheet" th:href="@{/css/animate.min.css}">
+    <link rel="stylesheet" th:href="@{/static/css/animate.min.css}">
     <!-- Magnific Popup CSS -->
-    <link rel="stylesheet" th:href="@{/css/magnific-popup.css}">
+    <link rel="stylesheet" th:href="@{/static/css/magnific-popup.css}">
 
     <!-- Medipro CSS -->
-    <link rel="stylesheet" th:href="@{/css/normalize.css}">
-    <link rel="stylesheet" th:href="@{/style.css}">
-    <link rel="stylesheet" th:href="@{/css/responsive.css}">
+    <link rel="stylesheet" th:href="@{/static/css/normalize.css}">
+    <link rel="stylesheet" th:href="@{/static/style.css}">
+    <link rel="stylesheet" th:href="@{/static/css/responsive.css}">
+
 
 </head>
 <body>
@@ -83,6 +84,9 @@
                         <li><i class="fa fa-phone"></i>+7 928 123 45 67</li>
                         <li><i class="fa fa-envelope"></i><a href="mailto:support@yourmail.com">blood_bank@mail.ru</a>
                         </li>
+                        <li>
+                            <a th:href="@{/logout}"> Выход</a>
+                        </li>
                     </ul>
                     <!-- End Top Contact -->
                 </div>
@@ -98,7 +102,7 @@
                     <div class="col-lg-3 col-md-3 col-12">
                         <!-- Start Logo -->
                         <div class="logo">
-                            <a href="index.html"><img th:src="@{/img/logo.png}" alt="#"></a>
+                            <a th:href="@{/index}"><img th:src="@{/static/img/logo.png}" alt="#"></a>
                         </div>
                         <!-- End Logo -->
                         <!-- Mobile Nav -->
@@ -112,8 +116,7 @@
                                 <ul class="nav menu">
                                     <li><a th:href="@{/donors}">Список доноров </a></li>
                                     <li class="active"><a th:href="@{/manage}">Управление персоналом </a></li>
-                                    <li><a th:href="@{/bank}">Список забора </a></li>
-                                    <li><a th:href="@{/profile}">Профиль</a></li>
+                                    <li><a th:href="@{/sample}">Список забора </a></li>
                                 </ul>
                             </nav>
                         </div>
@@ -137,30 +140,31 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="row justify-content-center">
-                    <form th:action="@{/manage/em/search}" th:object="${searchEm}" method="post"
-                          style="width: 60%; margin-left: 1.25%;">
+                    <form th:action="@{/employee/search}" th:object="${search}" method="post"
+                          style="width: 60%;">
                         <div class="input-group">
-                            <input type="text" class="form-control" th:field="*{string}"
-                                   placeholder="Найти... [Фамилия Имя Отчество]"
-                                   style="width: 100%; height: 47px;">
+                            <div class="col">
+                                <input type="text" class="form-control" th:field="*{string}"
+                                       placeholder="Найти... [Фамилия Имя Отчество]"
+                                       style="width: 100%; height: 47px;">
+                            </div>
                             <div class="input-group-append">
                                 <button class="btn btn-outline-secondary">Поиск <i class="fa fa-search"></i></button>
                             </div>
                         </div>
                     </form>
                     <div class="col">
-                        <form th:action="@{/manage/em/add}">
+                        <form th:action="@{/employee/add}">
                             <button class="btn">Добавить нового сотрудника</button>
                         </form>
                     </div>
                 </div>
-                <br><br>
+                <br>
                 <div th:if="${param.error}">
                     <div class="alert alert-danger">Невозможно удалить сотрудника, так как он связан со сменой.</div>
                 </div>
                 <form method="get"
                       role="form"
-                      th:action="@{/manage/employees}"
                       class="form-horizontal">
                     <details open>
                         <summary><h2>Список работников</h2></summary>
@@ -192,11 +196,11 @@
                                 <td><span th:text="${em.phone}"> Телефон </span></td>
                                 <td><span th:text="${em.employed}"> Дата устройства </span></td>
                                 <td>
-                                    <a th:href="@{/manage/em/edit(id=${em.id})}" class="btn"><i class="fa fa-edit"></i>
+                                    <a th:href="@{/employee/edit(id=${em.id})}" class="btn"><i class="fa fa-edit"></i>
                                     </a>
                                 </td>
                                 <td>
-                                    <a th:href="@{/manage/em/delete(id=${em.id})}" class="btn"><i
+                                    <a th:href="@{/employee/delete(id=${em.id})}" class="btn"><i
                                             class="fa fa-trash"></i></a>
                                 </td>
                             </tr>
@@ -217,7 +221,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <form th:action="@{/manage/sh/search}" th:object="${date}" method="post"
+                    <form th:action="@{/shift/search}" th:object="${date}" method="post"
                           style="width: 65%;">
                         <div class="input-group">
                             <div class="col">
@@ -235,25 +239,23 @@
                         </div>
                     </form>
                     <div class="col">
-                        <form th:action="@{/manage/sh/add}">
+                        <form th:action="@{/shift/add}">
                             <button class="btn">Добавить новую смену</button>
                         </form>
                     </div>
                 </div>
-                <br><br>
+                <br>
                 <div class="row">
                     <div class="col">
                         <h2>Текущая смена</h2>
                     </div>
-                    <br>
                 </div>
                 <div class="row">
                     <div class="col">
                         <form method="get"
                               role="form"
-                              th:action="@{/manage/shifts/current}"
                               class="form-horizontal">
-                            <br><br>
+                            <br>
                             <table class="myTable">
                                 <thead>
                                 <tr>
@@ -263,7 +265,7 @@
                                     <th> Время окончания</th>
                                     <th> ФИО Работника</th>
                                     <th> Изменить</th>
-                                    <!--                            <th> Удалить</th>-->
+                                    <th> Удалить</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -275,16 +277,16 @@
                                     <td><span th:text="${sh.date}"> Дата </span></td>
                                     <td><span th:text="${sh.begin}"> Начало </span></td>
                                     <td><span th:text="${sh.end}"> Конец </span></td>
-                                    <td><span th:text="${sh.full()}"> ФИО </span></td>
+                                    <td><span th:text="${sh.fullNameEmployee()}"> ФИО </span></td>
                                     <td>
-                                        <a th:href="@{/manage/sh/edit(id=${sh.id})}" class="btn"><i
+                                        <a th:href="@{/shift/edit(id=${sh.id})}" class="btn"><i
                                                 class="fa fa-edit"></i>
                                         </a>
                                     </td>
-                                    <!--                            <td>-->
-                                    <!--                                <a th:href="@{/manage/sh/delete(id=${sh.id})}" class="btn"><i-->
-                                    <!--                                        class="fa fa-trash"></i></a>-->
-                                    <!--                            </td>-->
+                                    <td>
+                                        <a th:href="@{/shift/delete(id=${sh.id})}" class="btn"><i
+                                                class="fa fa-trash"></i></a>
+                                    </td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -293,11 +295,10 @@
                 </div>
                 <form method="get"
                       role="form"
-                      th:action="@{/manage/shifts}"
                       class="form-horizontal">
                     <br><br>
-                    <details>
-                        <summary><h2>Посмотреть все смены</h2></summary>
+                    <details open>
+                        <summary><h2>Все смены</h2></summary>
                         <br>
                         <table class="myTable">
                             <thead>
@@ -308,7 +309,7 @@
                                 <th> Время окончания</th>
                                 <th> ФИО Работника</th>
                                 <th> Изменить</th>
-                                <!--                            <th> Удалить</th>-->
+                                <th> Удалить</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -320,16 +321,16 @@
                                 <td><span th:text="${sh.date}"> Дата </span></td>
                                 <td><span th:text="${sh.begin}"> Начало </span></td>
                                 <td><span th:text="${sh.end}"> Конец </span></td>
-                                <td><span th:text="${sh.full()}"> ФИО </span></td>
+                                <td><span th:text="${sh.fullNameEmployee()}"> ФИО </span></td>
                                 <td>
-                                    <a th:href="@{/manage/sh/edit(id=${sh.id})}" class="btn"><i
+                                    <a th:href="@{/shift/edit(id=${sh.id})}" class="btn"><i
                                             class="fa fa-edit"></i>
                                     </a>
                                 </td>
-                                <!--                            <td>-->
-                                <!--                                <a th:href="@{/manage/sh/delete(id=${sh.id})}" class="btn"><i-->
-                                <!--                                        class="fa fa-trash"></i></a>-->
-                                <!--                            </td>-->
+                                <td>
+                                    <a th:href="@{/shift/delete(id=${sh.id})}" class="btn"><i
+                                            class="fa fa-trash"></i></a>
+                                </td>
                             </tr>
                             </tbody>
                         </table>
@@ -426,44 +427,44 @@
 <!--/ End Footer Area -->
 
 <!-- jquery Min JS -->
-<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/static/js/jquery.min.js}"></script>
 <!-- jquery Migrate JS -->
-<script th:src="@{/js/jquery-migrate-3.0.0.js}"></script>
+<script th:src="@{/static/js/jquery-migrate-3.0.0.js}"></script>
 <!-- jquery Ui JS -->
-<script th:src="@{/js/jquery-ui.min.js}"></script>
+<script th:src="@{/static/js/jquery-ui.min.js}"></script>
 <!-- Easing JS -->
-<script th:src="@{/js/easing.js}"></script>
+<script th:src="@{/static/js/easing.js}"></script>
 <!-- Color JS -->
-<script th:src="@{/js/colors.js}"></script>
+<script th:src="@{/static/js/colors.js}"></script>
 <!-- Popper JS -->
-<script th:src="@{/js/popper.min.js}"></script>
+<script th:src="@{/static/js/popper.min.js}"></script>
 <!-- Bootstrap Datepicker JS -->
-<script th:src="@{/js/bootstrap-datepicker.js}"></script>
+<script th:src="@{/static/js/bootstrap-datepicker.js}"></script>
 <!-- Jquery Nav JS -->
-<script th:src="@{/js/jquery.nav.js}"></script>
+<script th:src="@{/static/js/jquery.nav.js}"></script>
 <!-- Slicknav JS -->
-<script th:src="@{/js/slicknav.min.js}"></script>
+<script th:src="@{/static/js/slicknav.min.js}"></script>
 <!-- ScrollUp JS -->
-<script src="js/jquery.scrollUp.min.js}"></script>
+<script th:src="@{/static/js/jquery.scrollUp.min.js}"></script>
 <!-- Niceselect JS -->
-<script th:src="@{/js/niceselect.js}"></script>
+<script th:src="@{/static/js/niceselect.js}"></script>
 <!-- Tilt Jquery JS -->
-<script th:src="@{/js/tilt.jquery.min.js}"></script>
+<script th:src="@{/static/js/tilt.jquery.min.js}"></script>
 <!-- Owl Carousel JS -->
-<script th:src="@{/js/owl-carousel.js}"></script>
+<script th:src="@{/static/js/owl-carousel.js}"></script>
 <!-- counterup JS -->
-<script th:src="@{/js/jquery.counterup.min.js}"></script>
+<script th:src="@{/static/js/jquery.counterup.min.js}"></script>
 <!-- Steller JS -->
-<script th:src="@{/js/steller.js}"></script>
+<script th:src="@{/static/js/steller.js}"></script>
 <!-- Wow JS -->
-<script th:src="@{/js/wow.min.js}"></script>
+<script th:src="@{/static/js/wow.min.js}"></script>
 <!-- Magnific Popup JS -->
-<script th:src="@{/js/jquery.magnific-popup.min.js}"></script>
+<script th:src="@{/static/js/jquery.magnific-popup.min.js}"></script>
 <!-- Counter Up CDN JS -->
 <script src="http://cdnjs.cloudflare.com/ajax/libs/waypoints/2.0.3/waypoints.min.js"></script>
 <!-- Bootstrap JS -->
-<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/static/js/bootstrap.min.js}"></script>
 <!-- Main JS -->
-<script th:src="@{/js/main.js}"></script>
+<script th:src="@{/static/js/main.js}"></script>
 </body>
 </html>
