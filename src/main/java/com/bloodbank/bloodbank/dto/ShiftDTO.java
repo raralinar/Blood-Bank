@@ -19,6 +19,7 @@ import java.time.LocalTime;
 @AllArgsConstructor
 @ToString
 public class ShiftDTO {
+    private Long id;
     @NotNull(message = "Значение 'Дата' не должно быть пустым.")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate date;

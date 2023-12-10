@@ -32,7 +32,7 @@ public class DonorDTO {
     @NotBlank(message = "Значение 'Телефон' не должно быть пустым.")
     @NotNull
     @UniquePhone
-    @Pattern(regexp = "^(8)([9]{1}[0-9]{9})?$", message = "Значение 'Телефон' не соответствует формату.")
+    @Pattern(regexp = "^(\\+7)(\\s\\()([9]{1}[0-9]{2}\\)\\s[0-9]{3}\\s[0-9]{2}\\s[0-9]{2})?$", message = "Значение 'Телефон' не соответствует формату.")
     private String phone;
     @NotNull(message = "Значение 'Дата' не должно быть пустым.")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
