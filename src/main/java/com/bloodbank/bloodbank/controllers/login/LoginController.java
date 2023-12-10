@@ -1,28 +1,30 @@
 package com.bloodbank.bloodbank.controllers.login;
 
 import com.bloodbank.bloodbank.model.login.User;
-import com.bloodbank.bloodbank.service.login.dto.UserDTO;
-import com.bloodbank.bloodbank.service.login.PasswordEncoder;
+import com.bloodbank.bloodbank.dto.login.UserDTO;
 import com.bloodbank.bloodbank.service.login.UserService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.Collection;
 import java.util.List;
 
 @Controller
 public class LoginController {
 
     private UserService userService;
-    private PasswordEncoder encoder;
+    private org.springframework.security.crypto.password.PasswordEncoder encoder;
 
     public LoginController(UserService userService, PasswordEncoder encoder) {
         this.userService = userService;
@@ -36,7 +38,6 @@ public class LoginController {
 
     @GetMapping("/register")
     public String showRegistrationForm(Model model){
-        // create model object to store form data
         UserDTO user = new UserDTO();
         model.addAttribute("user", user);
         return "login/register";
@@ -50,7 +51,7 @@ public class LoginController {
 
         if(existingUser != null && existingUser.getEmail() != null && !existingUser.getEmail().isEmpty()){
             result.rejectValue("email", null,
-                    "There is already an account registered with the same email");
+                    "Такой email уже зарегистрирован, попробуйте другой.");
         }
 
         if(result.hasErrors()){
@@ -59,14 +60,7 @@ public class LoginController {
         }
 
         userService.saveUser(userDto);
-        return "home/index";
-    }
-
-    @GetMapping("/users")
-    public String users(Model model){
-        List<UserDTO> users = userService.findAllUsers();
-        model.addAttribute("users", users);
-        return "login/users";
+        return "redirect:/index";
     }
 
     @NoArgsConstructor
@@ -81,16 +75,5 @@ public class LoginController {
     public String login(Model model) {
         model.addAttribute("user", new LoginUser());
         return "login/login";
-    }
-    @PostMapping("/login/check")
-    public String checkLogin(@Valid @ModelAttribute("user") LoginUser user){
-        User regUser = userService.findUserByEmail(user.getEmail());
-        if (regUser != null && regUser.getEmail() != null) {
-            if (regUser.getPassword().equals(encoder.encode(user.getPassword()))) {
-                Long id = regUser.getRole().getId();
-                return id == 2L ? "user/index" : id == 1L ? "redirect:/donors" : "medic/index";
-            }
-        }
-        return "redirect:/login?error";
     }
 }

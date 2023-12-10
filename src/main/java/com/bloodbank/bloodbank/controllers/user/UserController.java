@@ -3,12 +3,13 @@ package com.bloodbank.bloodbank.controllers.user;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class UserController {
 
-    @RequestMapping("/index")
+    @RequestMapping(value = "/index")
     public String home() {
         return "mediplus/index";
     }
@@ -39,24 +40,10 @@ public class UserController {
         return "mediplus/info";
     }
 
-    @RequestMapping("/profile")
-    public String profile() {
-        return "mediplus/profile";
-    }
-
     @RequestMapping("/contact")
     public String contacts() {
         return "mediplus/contact";
     }
 
-    @RequestMapping("/whole")
-    public String whole() {
-        return "mediplus/whole";
-    }
-
-    @RequestMapping("/blog")
-    public String blog() {
-        return "mediplus/blog-single";
-    }
 
 }

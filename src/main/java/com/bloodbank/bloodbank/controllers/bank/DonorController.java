@@ -20,8 +20,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Controller
-public class DonorController {
-    static String action = "add";
+public class DonorController implements IController<DonorController.Search, DonorDTO> {
+    static String action = "add", mainPage = "admin/donor/donors", editPage = "admin/donor/edit";
 
     private final DonorService donorService;
 
@@ -30,25 +30,25 @@ public class DonorController {
         this.donorService = donorService;
     }
 
-    @RequestMapping("/donors")
+    @GetMapping("/donors")
     public String init(Model model) {
         model.addAttribute("search", new Search());
         model.addAttribute("donors", donorService.getAll());
-        return "admin/donors";
+        return mainPage;
     }
 
     @GetMapping("/donors/add")
-    public String addDonor(Model model) {
+    public String add(Model model) {
         action = "add";
         if (!model.containsAttribute("donor")) {
             DonorDTO donorDTO = new DonorDTO();
             model.addAttribute("donor", donorDTO);
         }
-        return "admin/edit";
+        return editPage;
     }
 
     @PostMapping("/donors/add")
-    public String addDonor(@Valid @ModelAttribute("donor") DonorDTO donorDTO, BindingResult result,
+    public String add(@Valid @ModelAttribute("donor") DonorDTO donorDTO, BindingResult result,
                            Model model) {
         if (!donorDTO.getPhone().isBlank() && action.equals("edit")) {
             List<FieldError> errorsToKeep = result.getFieldErrors().stream()
@@ -61,42 +61,31 @@ public class DonorController {
             }
         }
         if (result.hasErrors()) {
-            return "admin/edit";
+            return editPage;
         }
         if (action.equals("add"))
             donorService.add(donorDTO);
         if (action.equals("edit")) {
             donorService.update(donorDTO);
         }
-        model.addAttribute("search", new Search());
-        model.addAttribute("donors", donorService.getAll());
-        return "admin/donors";
+        return "redirect:/donors";
     }
 
     @RequestMapping(value = "/donors/delete", method = RequestMethod.GET)
-    public String delete(Model model,
-                         @RequestParam Long id) {
+    public String delete(@RequestParam Long id) {
         donorService.delete(id);
-        model.addAttribute("search", new Search());
-        model.addAttribute("donors", donorService.getAll());
-        return "admin/donors";
+        return "redirect:/donors";
     }
 
     @RequestMapping(value = "/donors/edit", method = RequestMethod.GET)
     public String edit(@RequestParam Long id, Model model) {
         action = "edit";
-        model.addAttribute("donor", donorService.maptoDTO(donorService.findById((long) id)));
-        return "admin/edit";
+        model.addAttribute("donor", donorService.maptoDTO(donorService.findById(id)));
+        return editPage;
     }
 
-    @RequestMapping(value = "/donors/search", method = RequestMethod.GET)
-    public String search(Model model) {
-        model.addAttribute("search", new Search());
-        return "admin/donors";
-    }
-
-    @RequestMapping(value = "/donors/search", method = RequestMethod.POST)
-    public String search(@Valid @ModelAttribute(name = "search") Search search, BindingResult bindingResult, Model model) throws InterruptedException {
+    @RequestMapping(value = "/donors/search")
+    public String search(@Valid @ModelAttribute(name = "search") Search search, Model model) {
         List<String> donors = donorService.findByNames().stream()
                 .map(donor -> donor[0] + " " + donor[1] + " " + donor[2]).toList()
                 .stream().filter(donor -> donor.toUpperCase().contains(search.getString().toUpperCase()))
@@ -110,7 +99,7 @@ public class DonorController {
             donorList.addAll(donorService.findByNames(nameParts[0], nameParts[1], nameParts[2]));
         }
         model.addAttribute("donors", donorList);
-        return "admin/donors";
+        return mainPage;
     }
 
 
