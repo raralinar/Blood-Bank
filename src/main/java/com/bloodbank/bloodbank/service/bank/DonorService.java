@@ -37,10 +37,8 @@ public class DonorService implements IService<Donor, DonorDTO> {
         donor.setPhone(donorDTO.getPhone());
         donor.setDonation(donorDTO.getDonations());
 
-        System.out.println(donorDTO.getBlood_type() + " " + donorDTO.getRhesus());
         Blood blood = bloodDAO.findByTypeAndRhesus(donorDTO.getBlood_type(), donorDTO.getRhesus());
         if (blood == null) {
-            System.out.println(111);
             return;
         }
         donor.setBlood(blood);
@@ -58,11 +56,17 @@ public class DonorService implements IService<Donor, DonorDTO> {
 
     @Override
     public void update(DonorDTO donorDTO) {
-        Donor donor = donorDAO.findByPhone(donorDTO.getPhone());
+        if (donorDAO.findById(donorDTO.getId()).isEmpty()) {
+            System.out.println(donorDTO.getId());
+            return;
+        }
+        Donor donor = donorDAO.findById(donorDTO.getId()).get();
+        donor.setId(donorDTO.getId());
         donor.setName(donorDTO.getName());
         donor.setSurname(donorDTO.getSurname());
         donor.setPatronymic(donorDTO.getPatronymic());
         donor.setSex(donorDTO.getSex());
+        donor.setPhone(donorDTO.getPhone());
         donor.setDob(donorDTO.getDob());
         Blood blood = bloodDAO.findByTypeAndRhesus(donorDTO.getBlood_type(), donorDTO.getRhesus());
         if (blood == null) {
@@ -72,8 +76,16 @@ public class DonorService implements IService<Donor, DonorDTO> {
         donorDAO.save(donor);
     }
 
+    public void addDonation(Long id) {
+        if (donorDAO.findById(id).isEmpty())
+            return;
+        Donor donor = donorDAO.findById(id).get();
+        donor.setDonation(donorDAO.findById(id).get().getDonation() + 1);
+        donorDAO.save(donor);
+    }
+
     public List<String[]> findByNames() {
-        return donorDAO.findBySNP();
+        return donorDAO.findByFullName();
     }
 
     public List<Donor> findByNames(String surname, String name, String patronymic) {
@@ -92,7 +104,7 @@ public class DonorService implements IService<Donor, DonorDTO> {
 
     public DonorDTO maptoDTO(Donor donor) {
         DonorDTO donordto = new DonorDTO();
-        donordto.setId(donordto.getId());
+        donordto.setId(donor.getId());
         donordto.setName(donor.getName());
         donordto.setSurname(donor.getSurname());
         donordto.setPatronymic(donor.getPatronymic());

@@ -60,6 +60,7 @@ public class ShiftService implements IService<Shift, ShiftDTO> {
         shift.setDate(shiftDTO.getDate());
         shift.setBegin(shiftDTO.getBegin());
         shift.setEnd(shiftDTO.getEnd());
+        shift.setEmployee(employeeDAO.findById(Long.parseLong(shiftDTO.getEmployee().split(" ")[0])).get());
         shiftDAO.save(shift);
     }
 
@@ -68,7 +69,7 @@ public class ShiftService implements IService<Shift, ShiftDTO> {
         shiftDTO.setDate(shift.getDate());
         shiftDTO.setBegin(shift.getBegin());
         shiftDTO.setEnd(shift.getEnd());
-        shiftDTO.setEmployee(shift.getEmployee().getId() + " " + shift.full());
+        shiftDTO.setEmployee(shift.getEmployee().getId() + " " + shift.fullNameEmployee());
         return shiftDTO;
     }
 
