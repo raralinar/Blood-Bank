@@ -4220,54 +4220,6 @@ summary::after {
     cursor: pointer;
   }
 }
-
-
-#myTable {
-      border-collapse: collapse;
-      width: 80%;
-      border: 1px solid #ddd;
-      font-size: 18px;
-    }
-#myTable th {
-    color: #1A76D1;
-}
-    #myTable th, #myTable td {
-      text-align: center;
-      padding: 9px;
-      width: 1%;
-      white-space: nowrap;
-    }
-
-    #myTable tr {
-      border-bottom: 1px solid #ddd;
-    }
-
-    #myTable tr.header, #myTable tr:hover {
-      background-color: #f1f1f1;
-    }
-    #myTable1 {
-          border-collapse: collapse;
-          width: 80%;
-          border: 1px solid #ddd;
-          font-size: 18px;
-        }
-    #myTable1 th {
-        color: #1A76D1;
-    }
-        #myTable1 th, #myTable1 td {
-          text-align: center;
-          padding: 9px;
-          width: 1%;
-          white-space: nowrap;
-        }
-
-        #myTable1 tr {
-          border-bottom: 1px solid #ddd;
-        }
-
-        #myTable1 tr.header, #myTable1 tr:hover {
-          background-color: #f1f1f1;
-        }
     .round-button {
       display: block;
       width: 50px;
@@ -4283,3 +4235,27 @@ summary::after {
       font-size: 20px;
       font-weight: bold;
     }
+
+.myTable {
+          border-collapse: collapse;
+          width: 80%;
+          border: 1px solid #ddd;
+          font-size: 18px;
+        }
+    .myTable th {
+        color: #1A76D1;
+    }
+        .myTable th, .myTable td {
+          text-align: center;
+          padding: 9px;
+          width: 1%;
+          white-space: nowrap;
+        }
+
+        .myTable tr {
+          border-bottom: 1px solid #ddd;
+        }
+
+        .myTable tr.header, .myTable tr:hover {
+          background-color: #f1f1f1;
+        }
