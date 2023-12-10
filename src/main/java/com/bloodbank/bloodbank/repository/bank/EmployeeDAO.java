@@ -21,4 +21,7 @@ public interface EmployeeDAO extends JpaRepository<Employee, Long> {
 
     @Query("SELECT e FROM Employee e WHERE phone=?1")
     Employee findByPhone(String phone);
+
+    @Query("SELECT e FROM Employee e WHERE email=?1")
+    Employee findByEmail(String email);
 }

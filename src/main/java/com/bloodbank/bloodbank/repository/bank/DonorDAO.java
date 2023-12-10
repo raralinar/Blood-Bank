@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,7 +18,10 @@ public interface DonorDAO extends JpaRepository<Donor, Long> {
     Donor findByPhone(String phone);
 
     @Query("SELECT d.surname, d.name, d.patronymic FROM Donor d")
-    List<String[]> findBySNP();
+    List<String[]> findByFullName();
+
+    @Query("SELECT d FROM Donor d")
+    List<Donor> findAll();
 
     @Query("SELECT d FROM Donor d WHERE name=?2 AND surname=?1 AND patronymic=?3")
     List<Donor> findByNames(String surname, String name, String patronymic);
