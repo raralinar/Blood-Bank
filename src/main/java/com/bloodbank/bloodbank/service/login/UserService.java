@@ -4,7 +4,10 @@ import com.bloodbank.bloodbank.model.login.Role;
 import com.bloodbank.bloodbank.model.login.User;
 import com.bloodbank.bloodbank.repository.login.RoleRepository;
 import com.bloodbank.bloodbank.repository.login.UserRepository;
-import com.bloodbank.bloodbank.service.login.dto.UserDTO;
+import com.bloodbank.bloodbank.dto.login.UserDTO;
+import com.bloodbank.bloodbank.service.bank.EmployeeService;
+//import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,12 +18,14 @@ import java.util.stream.Collectors;
 public class UserService implements UserIService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
-    private final PasswordEncoder passwordEncoder;
+    private final org.springframework.security.crypto.password.PasswordEncoder passwordEncoder;
+    private final EmployeeService employeeService;
 
-    public UserService(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder, EmployeeService employeeService) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
+        this.employeeService = employeeService;
     }
 
     @Override
@@ -36,6 +41,27 @@ public class UserService implements UserIService {
 
         user.setRole(role);
         userRepository.save(user);
+    }
+
+    public void addEmployee(UserDTO userDTO, Long role_id) {
+        User user = new User();
+        user.setName(userDTO.getName());
+        user.setSurname(userDTO.getSurname());
+        user.setEmail(userDTO.getEmail());
+        user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+
+        Optional<Role> roleNullable = roleRepository.findById(role_id);
+        Role role = roleNullable.orElseGet(() -> new Role(role_id));
+
+        user.setRole(role);
+        user.setEmployee(employeeService.findById(userDTO.getEmployee_id()));
+        userRepository.save(user);
+    }
+
+    public String findByEmployeeId(Long id) {
+        List<String[]> p = userRepository.findByEmployee_id(id);
+        System.out.println(p);
+        return p.get(0)[0] + " " + p.get(0)[1];
     }
 
     @Override
